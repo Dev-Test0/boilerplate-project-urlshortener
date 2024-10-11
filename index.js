@@ -10,7 +10,8 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 
 app.use('/public', express.static(`${process.cwd()}/public`));
-app.use(express.urlencoded({urlencoded: true}))
+
+app.use(express.urlencoded({extended: true}))
 
 app.get('/', function(req, res) {
   res.sendFile(process.cwd() + '/views/index.html');
@@ -30,6 +31,12 @@ const shorturls = []
 
 app.post('/api/shorturl', (req, res) => {
   const originalurl = req.body.url;
+  //const shorturl = indexOf(originalurl);
+  if (originalurl.includes('https://' || originalurl.includes('http://')))
+    mainurls.push(originalurl)
 
-  res.json({mainurls: originalurl})
-})
+  return res.json({URL: mainurls})
+  
+ 
+ 
+});
