@@ -45,8 +45,8 @@ app.post('/api/shorturl', (req, res) => {
   }
   
   return res.json({
-    WebSite: originalurl,
-    Short: existUrl
+    "originalurl": originalurl,
+    "short_url": existUrl
   })
  
 });
