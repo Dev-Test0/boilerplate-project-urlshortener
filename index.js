@@ -42,13 +42,13 @@ app.post('/api/shorturl', (req, res) => {
     shorturls.push(shorturls.length);
 
     return res.json({
-      "originalurl": originalurl,
+      "original_url": originalurl,
       "short_url": shorturls.length -1
     })
   }
 
   return res.json({
-    "originalurl": originalurl,
+    "original_url": originalurl,
     "short_url": existUrl
   })
 })
