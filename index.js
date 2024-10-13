@@ -31,12 +31,34 @@ const shorturls = []
 
 app.post('/api/shorturl', (req, res) => {
   const originalurl = req.body.url;
-  //const shorturl = indexOf(originalurl);
-  if (originalurl.includes('https://' || originalurl.includes('http://')))
-    mainurls.push(originalurl)
+  const existUrl = mainurls.indexOf(originalurl) ;
 
-  return res.json({URL: mainurls})
+  if (!originalurl.includes('http://') && !originalurl.includes('https://')) {
+    return res.json({'error': 'invalid url'})
+  };  
   
- 
+  if (existUrl < 0) {
+    mainurls.push(originalurl);
+    shorturls.push(shorturls.length)
+    return res.json({WebSite: originalurl, 
+      Short: shorturls.length -1} )
+  }
+  
+  return res.json({
+    WebSite: originalurl,
+    Short: existUrl
+  })
  
 });
+
+app.get('/api/:shorturl', (req, res) => {
+  const short = parseInt(req.params.shorturl);
+  existUrl = shorturls.indexOf(short);
+
+  if (existUrl < 0) {
+    res.json({
+      'error': 'No short url found for the given input'
+    })
+  }
+  res.redirect(mainurls[existUrl])
+})
