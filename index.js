@@ -53,7 +53,7 @@ app.post('/api/shorturl', (req, res) => {
   })
 })
 
-app.get('/api/:shorturl', (req, res) => {
+app.get('/api/shorturl/:shorturl', (req, res) => {
   const short = parseInt(req.params.shorturl);
   existUrl = shorturls.indexOf(short);
 
