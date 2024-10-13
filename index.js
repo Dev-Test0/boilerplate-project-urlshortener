@@ -31,25 +31,27 @@ const shorturls = []
 
 app.post('/api/shorturl', (req, res) => {
   const originalurl = req.body.url;
-  const existUrl = mainurls.indexOf(originalurl) ;
+  const existUrl = mainurls.indexOf(originalurl);
 
-  if (!originalurl.includes('http://') && !originalurl.includes('https://')) {
+  if (!originalurl.includes('https://') && !originalurl.includes('http://')) {
     return res.json({'error': 'invalid url'})
-  };  
-  
+  }
+
   if (existUrl < 0) {
     mainurls.push(originalurl);
-    shorturls.push(shorturls.length)
-    return res.json({WebSite: originalurl, 
-      Short: shorturls.length -1} )
+    shorturls.push(shorturls.length);
+
+    return res.json({
+      "originalurl": originalurl,
+      "short_url": shorturls.length -1
+    })
   }
-  
+
   return res.json({
     "originalurl": originalurl,
     "short_url": existUrl
   })
- 
-});
+})
 
 app.get('/api/:shorturl', (req, res) => {
   const short = parseInt(req.params.shorturl);
